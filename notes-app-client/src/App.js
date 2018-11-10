@@ -32,7 +32,7 @@ handleLogout = event => {
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Scratch</Link>
+            <Link to="/">Home</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
