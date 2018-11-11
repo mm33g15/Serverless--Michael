@@ -61,7 +61,11 @@ handleLogout = async event =>
         <Navbar.Collapse>
           <Nav pullRight>
            {  this.state.isAuthenticated
-                          ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                          ? 
+                          <Fragment>
+                            <NavItem href="/profile">Profile</NavItem>
+                            <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                          </Fragment>
                      : <Fragment>
                          <Link to="/signup">SignUp</Link>{"  "}
                          <Link to="/login">Login</Link>

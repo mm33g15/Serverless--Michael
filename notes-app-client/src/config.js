@@ -4,8 +4,8 @@ export default {
     BUCKET: "file-upload-bucket-3207"
   },
   apiGateway: {
-    REGION: "us-east-1",
-    URL: "https://596xjmjwf8.execute-api.us-east-1.amazonaws.com/prod"
+    REGION: "us-east-2",
+    URL: "https://e99xy1y3yb.execute-api.us-east-2.amazonaws.com/prod"
   },
   cognito: {
     REGION: "us-east-2",

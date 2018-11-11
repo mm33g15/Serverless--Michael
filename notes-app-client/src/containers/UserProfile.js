@@ -105,7 +105,8 @@ export default class SignUp extends Component {
               <button className="btn btn-sm btn-danger">Delete</button>              
             </div>
             <div className="col-sm-3">
-              <button className="btn btn-primary btn-sm">Create a Project</button>
+
+              <Button  className="btn btn-primary btn-sm" href="/project/new">Create a Project</Button>
             </div>            
           </div>
         </div>

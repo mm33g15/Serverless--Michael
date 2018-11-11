@@ -5,9 +5,11 @@ import {
   FormControl,
   ControlLabel
 } from "react-bootstrap";
+import { Auth } from "aws-amplify";
+
 import LoaderButton from "../components/LoaderButton";
 import "./Signup.css";
-import { Auth } from "aws-amplify";
+
 
 export default class Signup extends Component {
   constructor(props) {
@@ -61,24 +63,29 @@ export default class Signup extends Component {
     this.setState({ isLoading: false });
   }
 
-  handleConfirmationSubmit = async event => {
+  handleConfirmationSubmit = async event => 
+  {
     event.preventDefault();
   
     this.setState({ isLoading: true });
   
-    try {
+    try 
+    {
       await Auth.confirmSignUp(this.state.email, this.state.confirmationCode);
       await Auth.signIn(this.state.email, this.state.password);
   
       this.props.userHasAuthenticated(true);
       this.props.history.push("/");
-    } catch (e) {
+    } 
+    catch (e) 
+    {
       alert(e.message);
       this.setState({ isLoading: false });
     }
   }
 
-  renderConfirmationForm() {
+  renderConfirmationForm() 
+  {
     return (
       <form onSubmit={this.handleConfirmationSubmit}>
         <FormGroup controlId="confirmationCode" bsSize="large">
@@ -104,7 +111,8 @@ export default class Signup extends Component {
     );
   }
 
-  renderForm() {
+  renderForm() 
+  {
     return (
       <form onSubmit={this.handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
