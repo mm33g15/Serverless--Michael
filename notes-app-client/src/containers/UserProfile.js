@@ -8,6 +8,8 @@ export default class SignUp extends Component {
     super(props);
   }
 
+
+
   render() {
     return (
       <div>
