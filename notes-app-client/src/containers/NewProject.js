@@ -5,7 +5,8 @@ import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import "./NewProject.css";
 import { API } from "aws-amplify";
-
+import { Auth } from "aws-amplify";
+import { s3Upload } from "../libs/awsLib";
 
 export default class NewProject extends Component {
   constructor(props) {
@@ -16,8 +17,23 @@ export default class NewProject extends Component {
     this.state = {
       isLoading: null,
       description: "",
-      title: ""
+      title: "",
+      userId: ""
     };
+  }
+
+
+  async componentDidMount() {
+    try {
+      var x = await Auth.currentUserInfo()
+      this.setState({userId: x.id})
+    }
+    catch(e) {
+      if (e !== 'No current user') 
+      {
+        alert(e);
+      }
+    }
   }
 
   validateForm() {
@@ -45,9 +61,15 @@ export default class NewProject extends Component {
     this.setState({ isLoading: true });
   
     try {
+      const attachment = this.file
+        ? await s3Upload(this.file)
+        : null;
+  
       await this.createProject({
+        userId: this.state.userId,
         title: this.state.title,
-        description: this.state.description
+        description: this.state.description,
+        attachment
       });
       this.props.history.push("/");
     } catch (e) {
@@ -55,6 +77,7 @@ export default class NewProject extends Component {
       this.setState({ isLoading: false });
     }
   }
+  
   
   createProject(project) {
     console.log(project)

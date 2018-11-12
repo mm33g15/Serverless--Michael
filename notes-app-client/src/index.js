@@ -6,6 +6,9 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from "react-router-dom";
 import Amplify from "aws-amplify";
 import config from "./config";
+import { Auth } from "aws-amplify";
+
+const AWS = require('aws-sdk')
 
 Amplify.configure({
   Auth: {
@@ -25,11 +28,15 @@ Amplify.configure({
       {
         name: "projects",
         endpoint: config.apiGateway.URL,
-        region: config.apiGateway.REGION
+        region: config.apiGateway.REGION,
+        custom_header: async () => {
+          return { Authorization: (await Auth.currentSession()).idToken.jwtToken }
+        }
       },
     ]
   }
 });
+AWS.config.credentials = null
 
 ReactDOM.render(
   <Router>

@@ -3,12 +3,33 @@ import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { Auth } from "aws-amplify";
 import "./Login.css";
 
+import { API } from "aws-amplify";
+
 export default class SignUp extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isLoading: null,
+      description: "",
+      title: "",
+      userId: "",
+      projects: [],
+      currentProject: {
+        status: "active",
+        description: "A project good to join",
+        image: "link"
+      }
+    };
   }
 
-
+  async componentDidMount() {
+    var projects =  API.get("projects", "/projects",{
+      body: {userId: this.props.userId}// cognitoId not working trying a workaround
+    });
+    console.log(projects)
+    if( projects.length )
+      this.setState({projects, currentProject : projects[0]});
+  }
 
   render() {
     return (
@@ -34,7 +55,7 @@ export default class SignUp extends Component {
               </ul>
             </div>
             <div className="col-sm-3">
-              <h3>Add a SKill</h3>
+              <h3>Add a Skill</h3>
               <form>
                 <input name="skill" />{"  "}
                 <button>Add</button>
@@ -48,17 +69,14 @@ export default class SignUp extends Component {
             <div className="col-sm-3">
               <h3>Projects</h3>
               <select>
-                <option>Project1</option>
-                <option>Project2</option>
-                <option>Project3</option>
-                <option>Project4</option>
+                {this.state.projects.map( (project) => <option>{project.title}</option>)}
               </select>
             </div>
             <div className="col-sm-3">
               <ul>
-                <li>Status: Active</li>
-                <li>Description: A good project</li>
-                <li>ProjectPicture: </li>
+              <li>Status: {this.state.currentProject.status}</li>
+              <li>Description: {this.state.currentProject.description}</li>
+              <li>ProjectPicture: <img src={this.state.currentProject.image} /> </li>
               </ul>
             </div>
           </div>
@@ -68,18 +86,15 @@ export default class SignUp extends Component {
           <div className="row">
             <div className="col-sm-4">
               <h3>Search for a Project to join</h3>
-              <select>
-                <option>Project1:</option>
-                <option>Project2</option>
-                <option>Project3</option>
-                <option>Project4</option>
+              <select onChange={()=> this.onChange()} >
+                {this.state.projects.map( (project) => <option>{project.title}</option>)}
               </select>
             </div>
             <div className="col-sm-3">
               <ul>
-                <li>Status: Active</li>
-                <li>Description: A good project</li>
-                <li>ProjectPicture: </li>
+                <li>Status: {this.state.currentProject.status}</li>
+                <li>Description: {this.state.currentProject.description}</li>
+                <li>ProjectPicture: <img src={this.state.currentProject.image} /> </li>
               </ul>
             </div>
 

@@ -1,6 +1,6 @@
 export default {
   s3: {
-    REGION: "EU (London)",
+    REGION: "eu-west-3",
     BUCKET: "file-upload-bucket-3207"
   },
   apiGateway: {

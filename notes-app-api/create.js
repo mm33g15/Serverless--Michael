@@ -7,7 +7,8 @@ export async function main(event, context) {
   const params = {
     TableName: "Projects",
     Item: {
-      userId: event.requestContext.identity.cognitoIdentityId,
+      //userId: event.requestContext.identity.cognitoIdentityId,
+      userId: data.userId,
       projectId: uuid.v1(),
       title: data.title,
       description: data.description,
@@ -21,6 +22,6 @@ export async function main(event, context) {
     return success(params.Item);
   } catch (e) {
     console.log(e);
-    return failure({ status: false, yes: "test" });
+    return failure({ status: false, error: e, event: event });
   }
 }

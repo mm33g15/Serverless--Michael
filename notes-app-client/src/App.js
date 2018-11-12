@@ -12,13 +12,17 @@ class App extends Component
  		super(props);
     this.state = 
     {
-      isAuthenticated: false
+      isAuthenticated: false,
+      userId: ""
     };
 	}
 
   async componentDidMount() {
     try {
-      await Auth.currentSession();//is user logged in
+      var x = await Auth.currentUserInfo()
+      var user = await Auth.currentSession();//is user logged in
+      console.log("user ",user,x)
+      this.setState({userId: x.id})
       this.userHasAuthenticated(true);
     }
     catch(e) {
@@ -47,7 +51,8 @@ handleLogout = async event =>
  render(){ 	
  const childProps = {
   isAuthenticated: this.state.isAuthenticated,
-  userHasAuthenticated: this.userHasAuthenticated
+  userHasAuthenticated: this.userHasAuthenticated,
+  userId: this.state.userId
 	};
   return (
     <div className="App container">
