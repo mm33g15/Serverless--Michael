@@ -10,20 +10,24 @@ import { Auth } from "aws-amplify";
 
 const AWS = require('aws-sdk')
 
-Amplify.configure({
-  Auth: {
+Amplify.configure
+({
+  Auth: 
+  {
     mandatorySignIn: true,
     region: config.cognito.REGION,
     userPoolId: config.cognito.USER_POOL_ID,
     identityPoolId: config.cognito.IDENTITY_POOL_ID,
     userPoolWebClientId: config.cognito.APP_CLIENT_ID
   },
-  Storage: {
+  Storage: 
+  {
     region: config.s3.REGION,
     bucket: config.s3.BUCKET,
     identityPoolId: config.cognito.IDENTITY_POOL_ID
   },
-  API: {
+  API: 
+  {
     endpoints: [
       {
         name: "projects",

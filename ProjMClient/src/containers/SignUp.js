@@ -11,11 +11,14 @@ import LoaderButton from "../components/LoaderButton";
 import "./Signup.css";
 
 
-export default class Signup extends Component {
-  constructor(props) {
+export default class Signup extends Component 
+{
+  constructor(props) 
+  {
     super(props);
 
-    this.state = {
+    this.state = 
+    {
       isLoading: false,
       email: "",
       password: "",
@@ -25,7 +28,8 @@ export default class Signup extends Component {
     };
   }
 
-  validateForm() {
+  validateForm() 
+  {
     return (
       this.state.email.length > 0 &&
       this.state.password.length > 0 &&
@@ -33,22 +37,26 @@ export default class Signup extends Component {
     );
   }
 
-  validateConfirmationForm() {
+  validateConfirmationForm() 
+  {
     return this.state.confirmationCode.length > 0;
   }
 
-  handleChange = event => {
+  handleChange = event => 
+  {
     this.setState({
       [event.target.id]: event.target.value
     });
   }
 
-  handleSubmit = async event => {
+  handleSubmit = async event => 
+  {
     event.preventDefault();
   
     this.setState({ isLoading: true });
   
-    try {
+    try 
+    {
       const newUser = await Auth.signUp({
         username: this.state.email,
         password: this.state.password
@@ -56,7 +64,8 @@ export default class Signup extends Component {
       this.setState({
         newUser
       });
-    } catch (e) {
+    } 
+    catch (e) {
       alert(e.message);
     }
   

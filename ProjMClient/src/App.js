@@ -17,16 +17,20 @@ class App extends Component
     };
 	}
 
-  async componentDidMount() {
-    try {
+  async componentDidMount() 
+  {
+    try 
+    {
       var x = await Auth.currentUserInfo()
       var user = await Auth.currentSession();//is user logged in
       console.log("user ",user,x)
       this.setState({userId: x.id})
       this.userHasAuthenticated(true);
     }
-    catch(e) {
-      if (e !== 'No current user') {
+    catch(e) 
+    {
+      if (e !== 'No current user') 
+      {
         alert(e);
       }
     }
@@ -35,7 +39,8 @@ class App extends Component
   }
 
 
-userHasAuthenticated = authenticated => {
+userHasAuthenticated = authenticated => 
+{
   this.setState({ isAuthenticated: authenticated });
 }
 
@@ -48,8 +53,10 @@ handleLogout = async event =>
 
 
 
- render(){ 	
- const childProps = {
+ render()
+ { 	
+ const childProps = 
+ {
   isAuthenticated: this.state.isAuthenticated,
   userHasAuthenticated: this.userHasAuthenticated,
   userId: this.state.userId

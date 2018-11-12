@@ -8,13 +8,16 @@ import { API } from "aws-amplify";
 import { Auth } from "aws-amplify";
 import { s3Upload } from "../libs/awsLib";
 
-export default class NewProject extends Component {
-  constructor(props) {
+export default class NewProject extends Component 
+{
+  constructor(props) 
+  {
     super(props);
 
     this.file = null;
 
-    this.state = {
+    this.state = 
+    {
       isLoading: null,
       description: "",
       title: "",
@@ -23,12 +26,15 @@ export default class NewProject extends Component {
   }
 
 
-  async componentDidMount() {
-    try {
+  async componentDidMount() 
+  {
+    try 
+    {
       var x = await Auth.currentUserInfo()
       this.setState({userId: x.id})
     }
-    catch(e) {
+    catch(e) 
+    {
       if (e !== 'No current user') 
       {
         alert(e);
@@ -36,21 +42,25 @@ export default class NewProject extends Component {
     }
   }
 
-  validateForm() {
+  validateForm() 
+  {
     return this.state.description.length > 0;
   }
 
-  handleChange = event => {
+  handleChange = event => 
+  {
     this.setState({
       [event.target.id]: event.target.value
     });
   }
 
-  handleFileChange = event => {
+  handleFileChange = event => 
+  {
     this.file = event.target.files[0];
   }
 
-  handleSubmit = async event => {
+  handleSubmit = async event => 
+  {
     event.preventDefault();
   
     if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
@@ -60,7 +70,8 @@ export default class NewProject extends Component {
   
     this.setState({ isLoading: true });
   
-    try {
+    try 
+    {
       const attachment = this.file
         ? await s3Upload(this.file)
         : null;
@@ -72,21 +83,26 @@ export default class NewProject extends Component {
         attachment
       });
       this.props.history.push("/");
-    } catch (e) {
+    }
+    catch (e) 
+    {
       alert(e);
       this.setState({ isLoading: false });
     }
   }
   
   
-  createProject(project) {
+  createProject(project) 
+  {
     console.log(project)
-    return API.post("projects", "/projects", {
+    return API.post("projects", "/projects", 
+    {
       body: project
     });
   }
 
-  render() {
+  render() 
+  {
     return (
       <div className="NewProject">
         <form onSubmit={this.handleSubmit}>

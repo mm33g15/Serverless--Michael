@@ -5,16 +5,20 @@ import "./Login.css";
 
 import { API } from "aws-amplify";
 
-export default class SignUp extends Component {
-  constructor(props) {
+export default class SignUp extends Component 
+{
+  constructor(props) 
+  {
     super(props);
-    this.state = {
+    this.state = 
+    {
       isLoading: null,
       description: "",
       title: "",
       userId: "",
       projects: [],
-      currentProject: {
+      currentProject: 
+      {
         status: "active",
         description: "A project good to join",
         image: "link"
@@ -22,8 +26,10 @@ export default class SignUp extends Component {
     };
   }
 
-  async componentDidMount() {
-    var projects =  API.get("projects", "/projects",{
+  async componentDidMount() 
+  {
+    var projects =  API.get("projects", "/projects",
+    {
       body: {userId: this.props.userId}// cognitoId not working trying a workaround
     });
     console.log(projects)
@@ -31,7 +37,8 @@ export default class SignUp extends Component {
       this.setState({projects, currentProject : projects[0]});
   }
 
-  render() {
+  render() 
+  {
     return (
       <div>
         
@@ -55,7 +62,7 @@ export default class SignUp extends Component {
               </ul>
             </div>
             <div className="col-sm-3">
-              <h3>Add a Skill</h3>
+              <h3>Add a skill</h3>
               <form>
                 <input name="skill" />{"  "}
                 <button>Add</button>
@@ -129,7 +136,7 @@ export default class SignUp extends Component {
         <div className="section-border">
           <div className="row">
           <h3 className="project-manager">User Manager</h3>
-            <div className="col-sm-">
+            <div className="col-sm-2">
               <p>Invite User to join Project: </p>
               <select>
                   <option>User1</option>
@@ -156,21 +163,14 @@ export default class SignUp extends Component {
                   <option>Project2</option>
                   <option>Project3</option>
                 </select>
-            <p>
-             
-                
+            <p>                  
                 <button className="btn btn-primary btn-sm">Edit</button>{" "}
                 <button className="btn btn-sm btn-danger">Delete</button>                  
-              </p>              
-            </div>
-            
-            <div className="col-sm-1">
-                          
+              </p>                  
             </div>                        
           </div>
-        </div>               
-
-      </div>
+        </div> 
+     </div>
     );
   }
 }
